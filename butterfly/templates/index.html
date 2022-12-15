@@ -6,18 +6,48 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Butterfly - A web terminal based on websocket and tornado">
-    <meta name="author" content="Mounier Florian">
     <link rel="shortcut icon" href="{{ static_url('images/favicon.png') }}">
 
-    <title>Butterfly</title>
+    <title>Terminal</title>
     <link href="{{ static_url('main.css') }}" rel="stylesheet" id="style">
+    <style>
+body #information {
+  position: fixed;
+  opacity: .3;
+  transition: .5s;
+  color: #110f13;
+  background-color: #f4ead5;
+  top: 0;
+  right: 0;
+  padding: .8em;
+}
+body #information:hover {
+  opacity: 1;
+}
+body #download {
+  text-decoration: none;
+  transition: .5s;
+  border: #110f13 1px solid;
+  color: #110f13;
+  background-color: #f4ead5;
+  padding: .4em;
+}
+body #download:hover {
+  color: #f4ead5;
+  background-color: #110f13;
+}
+    </style>
   </head>
 
   <body spellcheck="false"
         data-force-unicode-width="{{ 'yes' if options.force_unicode_width else 'no' }}"
         data-root-path="{{ options.uri_root_path }}"
         data-session-token={{ session }}>
+    <span id="information">
+      <span id="message">
+      </span>
+      <a href="#" id="download" download="log.txt">ログ出力</a>
+    </span>
     <textarea id="input-helper">
     </textarea>
     <div id="input-view" class="hidden">
@@ -30,6 +60,15 @@
     <script src="{{ static_url('ext.%sjs' % (
                  '' if options.unminified else 'min.')) }}"></script>
     <script src="{{ reverse_url('LocalJsStatic') }}"></script>
+    <script>
+(function() {
+  var btn = document.getElementById('download');
+  btn.addEventListener('click', function() {
+    var blob = new Blob([ document.getElementById('term').innerText ], { 'type' : 'text/plain' });
+    btn.href = window.URL.createObjectURL(blob);
+  });
+})();
+    </script>
     <div id="packed"></div>
     <div id="term"></div>
   </body>
