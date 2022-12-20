@@ -5,6 +5,7 @@ RUN apt-get update \
     openssh-client \
     telnet \
     vim \
+    wget \
     python3 \
     python3 \
     python3-pip \
@@ -33,6 +34,8 @@ RUN echo /bin/rbash >> /etc/shells \
  && ln -s /bin/ssh /home/ruser/bin/ \
  && ln -s /bin/telnet /home/ruser/bin/ \
  && ln -s /bin/cat /home/ruser/bin/ \
+ && ln -s /bin/vi /home/ruser/bin/ \
+ && ln -s /bin/wget /home/ruser/bin/ \
  && chown -R root:root /home/ruser/bin
 
 RUN sed -i '1iauth sufficient pam_permit.so' /etc/pam.d/common-auth
