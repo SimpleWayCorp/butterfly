@@ -82,9 +82,6 @@ document.addEventListener 'DOMContentLoaded', ->
     # Allow quick reload
     term.skipNextKey = true
     term.body.classList.add('dead')
-    # Don't autoclose if websocket didn't last 1 minute
-    if (new Date()).getTime() - openTs > 60 * 1000
-      window.open('','_self').close()
 
   reopenOnClose = ->
     setTimeout ->
