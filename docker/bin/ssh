@@ -1,0 +1,22 @@
+#!/bin/bash
+
+trap '' 18 19 20
+set -m
+
+PARAM=$*
+if [[ ! "$PARAM" =~ "@" ]]; then
+  echo -n "Username: "
+  read USERNAME
+  PARAM="-l "$USERNAME" "$PARAM
+fi
+
+PATH=".ssh/a3c"
+if [ -e $PATH ]; then
+  PARAM="-i "$PATH" "$PARAM
+fi
+
+PARAM="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$PARAM
+
+/bin/ssh $PARAM &
+/bin/bash bin/autoexit $! $PPID &
+fg 1 > /dev/null
