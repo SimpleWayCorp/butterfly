@@ -24,19 +24,16 @@ RUN python3 setup.py build \
 RUN echo /bin/rbash >> /etc/shells \
  && useradd ruser -m -s /bin/rbash \
  && echo "ruser:ruser" | chpasswd \
- && echo "PATH=\$HOME/bin" > /home/ruser/.bash_profile \
  && echo "PATH=\$HOME/bin" > /home/ruser/.bashrc \
- && echo "PS1='$ '" >> /home/ruser/.bash_profile \
  && echo "PS1='$ '" >> /home/ruser/.bashrc \
- && chown root:root /home/ruser/.bash_profile \
+ && echo "HISTSIZE=0" >> /home/ruser/.bashrc \
+ && echo "TMOUT=3600" >> /home/ruser/.bashrc \
+ && echo "enable -n alias break builtin caller cd command compgen complete compopt declare dirs disown echo enable eval exec export fc getopts hash help history let local logout mapfile popd printf pushd pwd read readarray readonly return shift shopt source suspend test times type typeset ulimit umask unalias unset wait " >> /home/ruser/.bashrc \
+ && echo "" > /home/ruser/.bash_logout \
  && chown root:root /home/ruser/.bashrc \
- && mkdir /home/ruser/bin \
- && ln -s /bin/ssh /home/ruser/bin/ \
- && ln -s /bin/telnet /home/ruser/bin/ \
- && ln -s /bin/cat /home/ruser/bin/ \
- && ln -s /bin/vi /home/ruser/bin/ \
- && ln -s /bin/wget /home/ruser/bin/ \
- && chown -R root:root /home/ruser/bin
+ && chown root:root /home/ruser/.bash_logout \
+ && echo "HostKeyAlgorithms=+ssh-rsa" >> /etc/ssh/ssh_config \
+ && echo "PubkeyAcceptedAlgorithms=+ssh-rsa" >> /etc/ssh/ssh_config
 
 RUN sed -i '1iauth sufficient pam_permit.so' /etc/pam.d/common-auth
 
