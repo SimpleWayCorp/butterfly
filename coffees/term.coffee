@@ -949,7 +949,7 @@ class Terminal
             switch @params[0]
               when 0, 1, 2
                 if @params[1]
-                  @title = @params[1] + " - ƸӜƷ butterfly"
+                  @title = @params[1] + " - Terminal"
                   @handleTitle @title
 
             # reset colors
@@ -1937,8 +1937,16 @@ class Terminal
         j = @y
         @eraseLine j while j--
       when 2
-        j = @rows
-        @eraseLine j while j--
+        if not @normal
+          i = @rows;
+          while i--
+            if not @term.childNodes[i] or @term.childNodes[i].innerText.replaceAll(' ','') != ''
+              break
+          for j in [0..i+1]
+            div = document.createElement("div")
+            div.className = 'line'
+            @term.appendChild(div)
+        []
 
 
   # CSI Ps K    Erase in Line (EL).

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  butterfly:
+    build: .
+    container_name: butterfly
+    restart: always
+    volumes:
+      - type: bind
+        source: ./docker/bin
+        target: /home/ruser/bin
+        read_only: true
+      - type: bind
+        source: ./docker/.ssh
+        target: /home/ruser/.ssh
+        read_only: true
+    ports:
+      - 57575:57575
