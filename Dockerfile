@@ -32,8 +32,10 @@ RUN echo /bin/rbash >> /etc/shells \
  && echo "" > /home/ruser/.bash_logout \
  && chown root:root /home/ruser/.bashrc \
  && chown root:root /home/ruser/.bash_logout \
- && echo "HostKeyAlgorithms=+ssh-rsa" >> /etc/ssh/ssh_config \
- && echo "PubkeyAcceptedAlgorithms=+ssh-rsa" >> /etc/ssh/ssh_config
+ && echo "    HostKeyAlgorithms=+ssh-rsa,ssh-dss" >> /etc/ssh/ssh_config \
+ && echo "    PubkeyAcceptedAlgorithms=+ssh-rsa,ssh-dss" >> /etc/ssh/ssh_config \
+ && echo "    KexAlgorithms=+diffie-hellman-group1-sha1,diffie-hellman-group-exchange-sha256" >> /etc/ssh/ssh_config \
+ && echo "    Ciphers=+3des-cbc,aes256-cbc,aes192-cbc,aes128-cbc" >> /etc/ssh/ssh_config
 
 RUN sed -i '1iauth sufficient pam_permit.so' /etc/pam.d/common-auth
 
