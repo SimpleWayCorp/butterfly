@@ -133,8 +133,6 @@ body {
     filter: saturate(2); }
   body.alarm {
     filter: hue-rotate(150deg); }
-  body.dead {
-    filter: grayscale(1); }
     body.dead:after {
       content: "CLOSED";
       font-size: 15em;
