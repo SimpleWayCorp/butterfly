@@ -11,7 +11,7 @@
     <title>Terminal</title>
     <link href="{{ static_url('main.css') }}" rel="stylesheet" id="style">
     <style>
-body #information {
+#information {
   position: fixed;
   opacity: .3;
   transition: .5s;
@@ -21,10 +21,10 @@ body #information {
   right: 0;
   padding: .8em;
 }
-body #information:hover {
+#information:hover {
   opacity: 1;
 }
-body #download {
+#download {
   text-decoration: none;
   transition: .5s;
   border: #110f13 1px solid;
@@ -32,9 +32,31 @@ body #download {
   background-color: #f4ead5;
   padding: .4em;
 }
-body #download:hover {
+#download:hover {
   color: #f4ead5;
   background-color: #110f13;
+}
+#tips {
+  text-decoration: none;
+  transition: .5s;
+  border: #110f13 1px solid;
+  color: #110f13;
+  background-color: #f4ead5;
+  padding: .4em;
+}
+#tips:hover, #tips-toggle:checked ~ #tips {
+  color: #f4ead5;
+  background-color: #110f13;
+}
+#tips-toggle {
+  display: none;
+}
+#tips-box {
+  margin-top: 1em;
+  display: none;
+}
+#tips-toggle:checked ~ #tips-box {
+  display: block;
 }
     </style>
   </head>
@@ -47,6 +69,13 @@ body #download:hover {
       <span id="message">
       </span>
       <a href="#" id="download" download="log.txt">ログ出力</a>
+      <input type="checkbox" id="tips-toggle">
+      <label for="tips-toggle" id="tips">ヘルプ</label>
+      <div id="tips-box">
+        <div>コピー: Ctrl+Insert</div>
+        <div>ペースト: Shift+Insert</div>
+        <div>前の1文字削除: Ctrl+h</div>
+      </div>
     </span>
     <textarea id="input-helper">
     </textarea>
